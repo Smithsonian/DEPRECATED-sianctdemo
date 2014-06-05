@@ -1,0 +1,123 @@
+<?php
+
+// Demo of Sidora Analysis API for CameraTrap
+// file: sianctdemo.module
+// author: Gert Schmeltz Pedersen gertsp45@gmail.com
+
+	function sianctdemo_init() {
+//    drupal_set_message(t('sianctdemo_init'));
+		drupal_add_css(drupal_get_path('module', 'sianctdemo').'/sianctdemo.css');
+		drupal_add_js(drupal_get_path('module', 'sianctdemo').'/sianctdemo.js');
+	}
+   
+	function sianctdemo_perm() {
+		return array('Demo of Sidora Analysis API for CameraTrap', 'Administer sianctdemo');
+	}
+   
+
+	function sianctdemo_menu() {
+		$items = array();
+		$items['sianctdemo'] = array(
+			'page callback' => 'sianctdemo',
+			'access arguments' => array('Demo of Sidora Analysis API for CameraTrap'),
+			'type' => MENU_CALLBACK,
+		);
+		$items['admin/settings/sianctdemo'] = array(
+			'title' => 'sianctdemo Settings',
+			'description' => 'sianctdemo Settings',
+			'page callback' => 'drupal_get_form',
+			'page arguments' => array('sianctdemo_settings'),
+			'access arguments' => array('Administer sianctdemo'),
+		);
+		return $items;
+	}
+
+	function sianctdemo_block($op = 'list', $delta = 0, $edit = array()) {
+		switch ($op) {
+			case 'list':
+				$blocks[0] = array(
+				'info' => t('sianctdemo Block'),
+				);
+				return $blocks;
+			case 'configure':
+				$form = array();
+				switch ($delta) {
+					case 0:
+						$form['sianctdemo_block_sianct']=array(
+							'#type' => 'textfield',
+							'#title' => t('The url of sianct'),
+							'#size' => 75,
+							'#description' => t('The url of sianct.'),
+							'#default_value' => variable_get('sianctdemo_block_sianct', t('http://127.0.0.1:8082/sianct')),
+						);
+						$form['sianctdemo_block_sianct_userpass']=array(
+							'#type' => 'textfield',
+							'#title' => t('The username:password at sianct'),
+							'#size' => 75,
+							'#description' => t('The username:password at sianct.'),
+							'#default_value' => variable_get('sianctdemo_block_sianct_userpass', t('sianctdemouserofsianct:sianctdemouserofsianctpassword')),
+						);
+						break;
+				}
+				return $form;
+			case 'save':
+				switch ($delta) {
+					case 0:
+						variable_set('sianctdemo_block_sianct', $edit['sianctdemo_block_sianct']);
+						variable_set('sianctdemo_block_sianct_userpass', $edit['sianctdemo_block_sianct_userpass']);
+						break;
+				}
+			case 'view': default:
+				case 0:
+					$block['subject'] = t('Sidora Analysis API for CameraTrap demo');
+					$block['content'] = sianctdemo_get_block();
+					break;
+		}
+		return $block;
+	}
+
+	function sianctdemo_theme() {
+		return array(
+			'sianctdemo_block_form' => array(
+				'arguments' => array (
+				'form' => NULL,
+				),
+			),
+		);
+	}
+
+	function sianctdemo_get_block() {
+		global $user;
+		date_default_timezone_set('America/New_York');
+	 	$datestamp = date('Y-m-d H:i:s');
+ 		$logdatestamp = date('Y-m-d');
+		$logfp = fopen('/tmp/sianctdemo-' . $logdatestamp . '.log', 'a');
+		fwrite($logfp, "\n\n[$datestamp] $user->name sianctdemoBlock.html");
+		fclose($logfp);
+		return file_get_contents(drupal_get_path('module', 'sianctdemo') . '/sianctdemoBlock.html');
+	}
+
+	function sianctdemo($op, $arg1=null, $arg2=null, $arg3=null, $arg4=null, $arg5=null, $arg6=null, $arg7=null, $arg8=null, $arg9=null) {
+		module_load_include('inc', 'sianctdemo', 'SIANCTDEMO');
+		$sianctdemoClass = new SIANCTDEMO();
+		if ($op == 'sianctdemoGetFile') {
+			$workflowResult = $sianctdemoClass->sianctdemoGetFile($arg1);
+			return $workflowResult;
+		}
+		if ($op == 'sianctdemoGetProjectStructure') {
+			$workflowResult = $sianctdemoClass->sianctdemoGetProjectStructure($arg1);
+			return $workflowResult;
+		}
+		if ($op == 'sianctdemoGetSpecies') {
+			$workflowResult = $sianctdemoClass->sianctdemoGetSpecies($_POST['pids']);
+			return $workflowResult;
+		}
+		if ($op == 'sianctdemoSelectObstables') {
+			$workflowResult = $sianctdemoClass->sianctdemoSelectObstables($arg1, $arg2, $arg3, $arg4, $arg5, $arg6, $arg7, $arg8, $arg9);
+			return $workflowResult;
+		}
+	}
+
+	function sianctdemo_settings() { 
+		return system_settings_form($form); 
+	}

@@ -1,0 +1,178 @@
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="sianctdemo.css" type="text/css">
+  <script src="sianctdemo.js" language="javascript"></script>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <script type="text/javascript" 
+    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB0Qak0d1SaixcO0nOFSRWrXhLx_2D_AvM&amp;sensor=false&amp;libraries=drawing">
+  </script>
+</head>
+<body onload="javascript:sianctdemoOnload();">
+  <div id="sianctdemoMainArea">
+    <!-- <div class="sianctdemoHeader">Demo of Sidora Analysis API for Islandora</div> -->
+	<div id="sianctdemoLeftColumnArea">
+		<div id="sianctdemoSelectionsArea" style="display:none">
+			<form>
+				<div>
+					<span class="sianctdemoLabel">Select workflow</span>
+					<div id="sianctdemoWorkflowSelectDiv">
+					</div>
+				</div>
+				<div>
+					<span style="width:100%">
+						<span class="sianctdemoSubLabel" style="float:right">After your selections below, click on
+							<input id="sianctdemoRunWorkflowButton" type="button" value="Run the Workflow" onclick="javascript:sianctdemoRun();" title="run the workflow" disabled/>
+						</span>
+					</span>
+				</div>
+				<div id="sianctdemoSelectSpecies" style="">
+					<span class="sianctdemoLabel">Select species name (as input to workflows)</span>&#160;&#160;&#160;
+					<input id="sianctdemoGetSpeciesButton" style="display:none" type="button" value="Get names" onclick="javascript:sianctdemoGetSpecies();" title="Get species names from the selected observation tables" disabled/>
+					<div>
+						<select id="sianctdemoSpecies" name="species_name" size="1" class="sianctdemoSelect" disabled onclick="javascript:sianctdemoSpeciesSelected(this);">
+							<option value=" ">
+								0 names from 0 observations
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="sianctdemoLabel" style="clear:both">Select observation tables</div>
+				<div class="sianctdemoSubLabel" style="clear:both">
+					You have selected <span id="sianctdemoSelectedObstablesCount">0</span> out of <span id="sianctdemoObstablesCount">0</span> observation tables.&#160;&#160;
+					<input id="sianctdemoClearButton" type="button" value="Clear" onclick="javascript:sianctdemoClear();" title="clear the selection" disabled>
+				</div>
+				  <div style="font-size:90%;clear:both">
+				  	<span id="sianctdemoShowFilters" style="">&#160;
+						<input type="button" value="Show" onclick="javascript:sianctdemoShowFilters();" title="Show filters">
+					</span>
+					<span id="sianctdemoHideFilters" style="display:none">&#160;
+						<input type="button" value="Hide" onclick="javascript:sianctdemoHideFilters();" title="Hide filters">
+					</span>
+					<span class="sianctdemoLabel">
+						- Selection by filters
+					</span>
+				  </div>
+				<div id="sianctdemoFiltersArea" style="display:none;clear:both">
+				<div id="sianctdemoSelectAllSpeciesDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoAllSpeciesFilterCheckbox" value="all_species_names" onclick="javascript:sianctdemoAllSpeciesNamesFilterClicked()" title="Click to show filter for all species names"></input>
+						Filter by species name
+					</span>
+					<div id="sianctdemoAllSpeciesFilterDiv" class="sianctFilterDiv" style="display:none">
+						<select id="sianctdemoAllSpeciesSelect" name="all_species_names" size="1" class="sianctdemoSelect" onclick="javascript:sianctdemoAllSpeciesNamesFilterClicked(this);">
+							<option value=" ">
+								0 names from 0 observations
+							</option>
+						</select>
+					</div>
+				</div>
+				<div id="sianctdemoIdtypeDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoIdtypeFilterCheckbox" value="idtype" onclick="javascript:sianctdemoIdtypeFilterClicked()" title="Click to show filter for Id Type"></input>
+						Filter by Id Type
+					</span>
+					<span id="sianctdemoIdtypeFilterDiv" class="sianctFilterDiv" style="display:none">
+					<span class="sianctdemoSubLabel">
+						<input checked type="checkbox" id="sianctdemoResearcherCheckbox" value="researcher_observation.csv" title="Set filter for Researcher"></input>
+						- Researcher
+					</span>
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoVolunteerCheckbox" value="volunteer_observation.csv" title="Set filter for Volunteer"></input>
+						- Volunteer
+					</span>
+					</span>
+				</div>
+				<div id="sianctdemoDatesDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoDatesFilterCheckbox" value="dates" onclick="javascript:sianctdemoDatesFilterClicked()" title="Click to show filter for dates"></input>
+						Filter by camera deployment date interval
+					</span>
+					<div id="sianctdemoDatesFilterDiv" class="sianctFilterDiv" style="display:none">
+					<div id="sianctdemoBeginEnd">
+								&#160;&#160;begin date: [&#160;<input id="sianctdemoBeginFrom" type="text" size="8" value="20000101"">
+								&#160;-&#160;<input id="sianctdemoBeginTo" type="text" size="8" value="20991231"">&#160;]
+								<br/>
+								&#160;&#160;&#160;&#160;end date: [&#160;<input id="sianctdemoEndFrom" type="text" size="8" value="20000101"">
+								&#160;-&#160;<input id="sianctdemoEndTo" type="text" size="8" value="20991231"">&#160;]
+					</div>
+					</div>
+				</div>
+				<div id="sianctdemoGeoDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoGeoFilterCheckbox" value="geo" onclick="javascript:sianctdemoGeoFilterClicked()" title="Click to show filter for geographic bounding box"></input>
+						Filter by geographic bounding box
+					</span>
+					<div id="sianctdemoGeoFilterDiv" class="sianctFilterDiv" style="display:none">
+				  <div id="sianctdemoSelectGeo" style="">
+						<span class="sianctdemoSubLabel">- by drawing a bounding box on the map or</span>
+					<br><span class="sianctdemoSubLabel">- by entering coordinates here, then press Enter:</span>
+					<table id="sianctdemoBoundingBoxTable">
+						<tr>
+							<td>north latitude -&gt;</td>
+							<td><input id="sianctdemoNorth" value="45" type="text" size="12" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><input id="sianctdemoWest" value="-45" type="text" size="9" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td>&lt;west longitude east&gt;</td>
+							<td><input id="sianctdemoEast" value="45" type="text" size="9" onchange="javascript:sianctdemoBBoxChanged();"></td>
+						</tr>
+						<tr>
+							<td>south latitude -&gt;</td>
+							<td><input id="sianctdemoSouth" value="-45" type="text" size="12" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td></td>
+						</tr>
+					</table>
+				  </div>
+					</div>
+				</div>
+					<div id="sianctdemoButtons" class="sianctFilterDiv">
+						<span style="">
+							<span class="sianctdemoSubLabel" style="float:left">- after selecting filters click on 
+								<input id="sianctdemoFindButton" type="button" value="Select observation tables" onclick="javascript:sianctdemoSelectObstables();" title="select observation tables by filters">
+							</span>
+						</span>
+					</div>
+				</div>
+				  <div style="font-size:90%;clear:both">
+				  	<span id="sianctdemoShowProjectTree" style="">&#160;
+						<input type="button" value="Show" onclick="javascript:sianctdemoShowProjectTree();" title="Show project/park/site/cameratrap tree structure">
+					</span>
+					<span id="sianctdemoHideProjectTree" style="display:none">&#160;
+						<input type="button" value="Hide" onclick="javascript:sianctdemoHideProjectTree();" title="Hide project/park/site/cameratrap tree structure">
+					</span>
+					<span class="sianctdemoLabel">
+						- Selection by project/park/site/cameratrap tree structure:
+					</span>
+				  </div>
+				  <div id="sianctdemoProjectStructureArea" style="display:none"><span> </span></div>
+			</form>
+		</div>
+	</div>
+	<div id="sianctdemoRightColumnArea">
+		<div id="sianctdemoMapArea" style="width:100%; height:400px"><span> </span></div>
+		<div id="sianctdemoAjaxArea" style="display:none"><span> </span></div>
+		<div id="sianctdemoStatusDiv">
+			<span> </span><div id="sianctdemoStatusArea"><span> </span></div>
+		</div>
+		<!-- 
+		<div id="sianctdemoDescriptionArea">
+			<p>This is a demo of the Islandora module Sidora Analysis API, abbreviated sianctdemo.</p>
+			<p>The demo calls the Sidora Analysis API, abbreviated sianct, by REST calls, just as other clients may do.</p>
+			<p>Analyses are performed by workflows, which run on a workflow server,
+				through a module called Generic Workflow, abbreviated gflow.
+			   <a href="/node/6" target="gflow">This module has its own demo interface here</a>.
+			</p>
+			<p>Workflows are constructed with the Taverna Workbench, and run by the Taverna Server.
+	  		, as configured at <a href="/admin/build/block/configure/gflow/0">the Generic Workflow module block</a>.</p>
+      		<p><a href="http://www.taverna.org.uk/" target="taverna">See about Taverna here</a>.</p>
+			<p>Workflows may contain R code, developed and run by the R system.</p>
+		</div>
+	  -->
+	</div>
+	<div id="sianctdemoBottomArea" style="display:none"><span> </span>
+	</div>
+  </div>
+</body>
+</html>
