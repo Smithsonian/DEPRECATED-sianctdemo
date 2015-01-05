@@ -1,0 +1,163 @@
+  <div id="sianctdemoMainArea">
+	<div id="sianctdemoLeftColumnArea">
+		<div id="sianctdemoSelectionsArea" style="">
+			<form>
+				<div>
+					<span class="sianctdemoLabel">Select workflow</span>
+					<span style="width:100%">
+						<span class="sianctdemoSubLabel" style="float:right">
+							<input id="sianctdemoRunWorkflowButton" type="button" value="Run the Workflow" onclick="javascript:sianctdemoRun();" title="run the workflow" disabled/>
+						</span>
+					</span>
+					<div id="sianctdemoWorkflowSelectDiv">
+					</div>
+				</div>
+				<div id="sianctdemoSelectSpecies" style="">
+					<span class="sianctdemoLabel">Select species names (as input to workflows)</span>&#160;&#160;&#160;
+					<!-- <input id="sianctdemoShowObservationsButton" type="button" value="Show" onclick="javascript:sianctdemoShowObservations();" title="Show the selected observations" > -->
+					<div class="sianctdemoFilterDiv">
+						<span class="sianctdemoSubLabel" style="vertical-align:top">(multiple selection)</span>
+				  		<span id="sianctdemoShowSpeciesInSelectionImage" style="vertical-align:top">&#160;&#160;
+							<img id="sianctdemoShowSpeciesInSelectionImg" src="/sites/all/modules/sianctdemo/images/down_red.gif" onclick="javascript:sianctdemoShowSpeciesInSelectionImage();" title="Show species names in selected observation tables"/>
+						</span>
+						<span id="sianctdemoHideSpeciesInSelectionImage" style="vertical-align:top; display:none">&#160;&#160;
+							<img id="sianctdemoHideSpeciesInSelectionImg" src="/sites/all/modules/sianctdemo/images/right_red.gif" onclick="javascript:sianctdemoHideSpeciesInSelectionImage();" title="Hide species names in selected observation tables"/>
+						</span>
+						<select id="sianctdemoSpeciesInSelection" multiple size="1" class="sianctdemoSelect" onclick="javascript:sianctdemoSpeciesSelected(this);">
+							<option value=" ">
+								0 names ( 0 observations )
+							</option>
+						</select>
+					</div>
+				</div>
+				<div class="sianctdemoLabel" style="clear:both">Select observation tables</div>
+				<div class="sianctdemoFilterDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						You have selected <span id="sianctdemoSelectedObstablesCount">0</span> out of <span id="sianctdemoObstablesCount">0</span> observation tables.&#160;&#160;
+						<input id="sianctdemoClearButton" type="button" value="Clear" onclick="javascript:sianctdemoClear();" title="Clear the selection" disabled>
+					</span>
+				</div>
+				<div style="font-size:90%;clear:both">
+				  	<span id="sianctdemoShowFilters" style="">&#160;
+						<input type="button" value="Show" onclick="javascript:sianctdemoShowFilters();" title="Show filters">
+					</span>
+					<span id="sianctdemoHideFilters" style="display:none">&#160;
+						<input type="button" value="Hide" onclick="javascript:sianctdemoHideFilters();" title="Hide filters">
+					</span>
+					<span class="sianctdemoLabel">
+						- Selection by filters
+					</span>
+				</div>
+				<div id="sianctdemoFiltersArea" style="display:none;clear:both">
+					<div id="sianctdemoButtons" class="sianctdemoFilterDiv">
+						<span style="">
+							<span class="sianctdemoSubLabel" style="float:left">- after selecting filters click on
+								<input id="sianctdemoFindButton" type="button" value="Select observation tables" onclick="javascript:sianctdemoSelectObstables();" title="select observation tables by filters">
+							</span>
+						</span>
+					</div>
+				<div id="sianctdemoSelectAllSpeciesDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoAllSpeciesFilterCheckbox" value="all_species_names" onclick="javascript:sianctdemoAllSpeciesNamesFilterClicked()" title="Click to show filter for all species names"></input>
+						Filter by species names (multiple selection)
+					</span>
+					<div id="sianctdemoAllSpeciesFilterDiv" class="sianctdemoFilterDiv" style="display:none">
+				  		<span id="sianctdemoAllSpeciesShowImage" style="vertical-align:top; display:none">&#160;&#160;&#160;&#160;&#160;
+							<img id="sianctdemoAllSpeciesShowImg" src="/sites/all/modules/sianctdemo/images/down_red.gif" onclick="javascript:sianctdemoAllSpeciesShow();" title="Show species names"/>
+						</span>
+						<span id="sianctdemoAllSpeciesHideImage" style="vertical-align:top">&#160;&#160;&#160;&#160;&#160;
+							<img id="sianctdemoAllSpeciesHideImg" src="/sites/all/modules/sianctdemo/images/right_red.gif" onclick="javascript:sianctdemoAllSpeciesHide();" title="Hide species names"/>
+						</span>
+						<select id="sianctdemoAllSpeciesSelect" name="all_species_names" multiple size="1" style="margin:5px">
+							<option value=" ">
+								0 names from 0 observations
+							</option>
+						</select>
+					</div>
+				</div>
+				<div id="sianctdemoIdtypeDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoIdtypeFilterCheckbox" value="idtype" onclick="javascript:sianctdemoIdtypeFilterClicked()" title="Click to show filter for Id Type"></input>
+						Filter by Id Type
+					</span>
+					<span id="sianctdemoIdtypeFilterDiv" class="sianctdemoFilterDiv" style="display:none">
+					<span class="sianctdemoSubLabel">
+						<input checked type="checkbox" id="sianctdemoResearcherCheckbox" value="researcher_observation.csv" title="Set filter for Researcher"></input>
+						- Researcher
+					</span>
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoVolunteerCheckbox" value="volunteer_observation.csv" title="Set filter for Volunteer"></input>
+						- Volunteer
+					</span>
+					</span>
+				</div>
+				<div id="sianctdemoDatesDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoDatesFilterCheckbox" value="dates" onclick="javascript:sianctdemoDatesFilterClicked()" title="Click to show filter for dates"></input>
+						Filter by camera deployment date interval
+					</span>
+					<div id="sianctdemoDatesFilterDiv" class="sianctdemoFilterDiv" style="display:none">
+					<div id="sianctdemoBeginEnd">
+								&#160;&#160;begin date: [&#160;<input id="sianctdemoBeginFrom" type="text" size="8" value="20000101"">
+								&#160;-&#160;<input id="sianctdemoBeginTo" type="text" size="8" value="20991231"">&#160;]
+								<br/>
+								&#160;&#160;&#160;&#160;end date: [&#160;<input id="sianctdemoEndFrom" type="text" size="8" value="20000101"">
+								&#160;-&#160;<input id="sianctdemoEndTo" type="text" size="8" value="20991231"">&#160;]
+					</div>
+					</div>
+				</div>
+				<div id="sianctdemoGeoDiv" style="clear:both">
+					<span class="sianctdemoSubLabel">
+						<input type="checkbox" id="sianctdemoGeoFilterCheckbox" value="geo" onclick="javascript:sianctdemoGeoFilterClicked()" title="Click to show filter for geographic bounding box"></input>
+						Filter by geographic bounding box
+					</span>
+					<div id="sianctdemoGeoFilterDiv" class="sianctdemoFilterDiv" style="display:none">
+				  <div id="sianctdemoSelectGeo" style="">
+						<span class="sianctdemoSubLabel">- by drawing a bounding box on the map or</span>
+					<br><span class="sianctdemoSubLabel">- by entering coordinates here, then press Enter:</span>
+					<table id="sianctdemoBoundingBoxTable">
+						<tr>
+							<td>north latitude -&gt;</td>
+							<td><input id="sianctdemoNorth" value="45" type="text" size="12" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><input id="sianctdemoWest" value="-45" type="text" size="9" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td>&lt;west longitude east&gt;</td>
+							<td><input id="sianctdemoEast" value="45" type="text" size="9" onchange="javascript:sianctdemoBBoxChanged();"></td>
+						</tr>
+						<tr>
+							<td>south latitude -&gt;</td>
+							<td><input id="sianctdemoSouth" value="-45" type="text" size="12" onchange="javascript:sianctdemoBBoxChanged();"></td>
+							<td></td>
+						</tr>
+					</table>
+				  </div>
+					</div>
+				</div>
+				</div>
+				  <div style="font-size:90%;clear:both">
+				  	<span id="sianctdemoShowProjectTree" style="">&#160;
+						<input type="button" value="Show" onclick="javascript:sianctdemoShowProjectTree();" title="Show project/park/site/cameratrap tree structure">
+					</span>
+					<span id="sianctdemoHideProjectTree" style="display:none">&#160;
+						<input type="button" value="Hide" onclick="javascript:sianctdemoHideProjectTree();" title="Hide project/park/site/cameratrap tree structure">
+					</span>
+					<span class="sianctdemoLabel">
+						- Selection by project/park/site/cameratrap tree structure:
+					</span>
+				  </div>
+				  <div id="sianctdemoProjectStructureArea" style="display:none"><span> </span></div>
+			</form>
+		</div>
+	</div>
+	<div id="sianctdemoRightColumnArea">
+		<div id="sianctdemoMapArea" style="width:100%; height:400px"><span> </span></div>
+		<div id="sianctdemoAjaxArea" style="display:none"><span> </span></div>
+		<div id="sianctdemoStatusDiv">
+			<span> </span><div id="sianctdemoStatusArea"><span> </span></div>
+		</div>
+	</div>
+	<div id="sianctdemoBottomArea" style="display:none"><span> </span>
+	</div>
+  </div>

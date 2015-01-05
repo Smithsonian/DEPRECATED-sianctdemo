@@ -1,0 +1,185 @@
+/* Demo of Sidora Analysis for CameraTrap
+   file: sianctdemo.css
+   author: Gert Schmeltz Pedersen gertsp45@gmail.com
+*/
+
+	#sianctdemoMainArea {
+		float: left;
+		width: 95%;
+		padding: 0px;
+		margin: 0px;
+		background-color: #eeeeff;
+	}
+
+	#sianctdemoLeftColumnArea {
+		float: left;
+		width: 45%;
+		background-color: #eeee11;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	#sianctdemoRightColumnArea {
+		float: right;
+		width: 55%;
+		background-color: #eeeeff;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	#sianctdemoSelectionsArea {
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	#sianctdemoMapArea {
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+
+	#sianctdemoProjectStructureArea {
+		width: 97%;
+		color: black;
+		background-color: #eedd99;
+		font-size: 100%;
+		font-style: normal;
+		padding: 0px;
+		margin: 5px 5px 50px 5px;
+	}
+
+	#sianctdemoStatusDiv {
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+		background-color: #eeeeff;
+		clear: both;
+	}
+
+	#sianctdemoStatusArea {
+		width: 90%;
+		color: black;
+		font-size: 80%;
+		font-style: normal;
+		padding: 0px 0px 20px 20px;
+		margin: 0px;
+	}
+
+	#sianctdemoDescriptionArea {
+		width: 95%;
+		color: black;
+		background-color: #eeeedd;
+		font-size: 80%;
+		font-style: normal;
+		padding: 20px;
+		margin: 0px;
+		clear: both;
+	}
+
+	#sianctdemoBottomArea {
+		width: 95%;
+		color: black;
+		background-color: #eeeedd;
+		font-size: 80%;
+		font-style: normal;
+		padding: 0px;
+		margin: 0px;
+		clear: both;
+	}
+
+	.sianctdemoProjectItem {
+		color: blue;
+		font-size: 100%;
+		font-weight: bold;
+		padding: 0px;
+		margin: 0px 0px 0px 0px;
+	}
+
+	.sianctdemoParkItem {
+		color: red;
+		font-size: 95%;
+		font-style: italic;
+		padding: 0px;
+		margin: 0px 0px 0px 10px;
+	}
+
+	.sianctdemoSiteItem {
+		color: brown;
+		font-size: 90%;
+		font-style: italic;
+		padding: 0px;
+		margin: 0px 0px 0px 20px;
+	}
+
+	.sianctdemoCameratrapItem {
+		color: black;
+		font-size: 85%;
+		font-style: italic;
+		padding: 0px;
+		margin: 0px 0px 0px 30px;
+	}
+
+	.sianctdemoObstableItem {
+		color: green;
+		font-size: 80%;
+		font-style: normal;
+		padding: 0px;
+		margin: 0px 0px 0px 40px;
+	}
+
+	.sianctdemoHeader {
+		clear: both;
+		color: blue;
+		font-size: 150%;
+		font-weight: bold;
+		padding: 15px;
+		margin: 10px 10px 10px 10px;
+	}
+
+	.sianctdemoLabel {
+		color: brown;
+		font-size: 90%;
+		font-weight: bold;
+		padding: 0px;
+		margin: 5px 5px 8px 10px;
+	}
+
+	.sianctdemoSubLabel {
+		color: brown;
+		font-size: 80%;
+		font-style: normal;
+		padding: 0px;
+		margin: 3px 0px 3px 30px;
+	}
+
+	.sianctdemoSelect {
+		padding: 0px;
+		margin: 5px 0px 5px 32px;
+	}
+
+	#sianctdemoResultButton {
+		color: brown;
+		font-size: 120%;
+		font-weight: bold;
+		padding: 50px;
+		margin: 0px 0px 0px 25px;
+	}
+
+	#sianctdemoButtons {
+		clear: both;
+		float: right;
+		margin: 5px 25px 5px 25px;
+		background-color: #eedd99;
+	}
+
+	.sianctdemoFilterDiv {
+		clear: both;
+		float: right;
+		margin: 5px 25px 5px 25px;
+		background-color: #eedd99;
+	}
+
+	#sianctdemoSelectSpecies {
+		clear: both;
+	}
